@@ -56,6 +56,10 @@ const Register = () => {
         loading={loading}
         handleSubmit={handleSubmit}
       />
+
+      <Text style={styles.linkText}>
+        Already have an account? <Text style={styles.link}>Login</Text>
+      </Text>
     </View>
   );
 };
@@ -75,6 +79,16 @@ const styles = StyleSheet.create({
   textBold: {
     color: "#000",
     fontSize: 24,
+    fontWeight: "bold",
+  },
+  linkText: {
+    color: "#000",
+    fontSize: 14,
+    marginTop: "3%",
+  },
+  link: {
+    color: "blue",
+    fontWeight: "bold",
   },
 });
 
