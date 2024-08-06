@@ -14,7 +14,7 @@ const Register = () => {
        <Inputtext 
        inputTitle={'Name'}
        value={name}
-       setName={setName}
+       setValue={setName}
        
        />
 
@@ -23,7 +23,7 @@ const Register = () => {
        keyboardType={'email-address'}
        autoComplete={'email'}
        value={email}
-       setEmail={setEmail}
+       setValue={setEmail}
        />
 
        <Inputtext 
@@ -31,7 +31,7 @@ const Register = () => {
        secureTextEntry={true}
        autoComplete={'password'}
        value={password}
-       setPassword={setPassword}    
+       setValue={setPassword}    
        />
       </View>
       <Text>{JSON.stringify({name,email,password},null,4)}</Text>
