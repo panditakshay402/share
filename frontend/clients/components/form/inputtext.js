@@ -1,7 +1,7 @@
 import { View, Text,TextInput,StyleSheet } from 'react-native'
 import React from 'react'
 
-const Inputtext = ({inputTitle,keyboardType,autoComplete,secureTextEntry=false}) => {
+const Inputtext = ({inputTitle,keyboardType,autoComplete,secureTextEntry=false,value,setValue}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{inputTitle}</Text>
@@ -10,6 +10,8 @@ const Inputtext = ({inputTitle,keyboardType,autoComplete,secureTextEntry=false})
       keyboardType={keyboardType}
       autoComplete={autoComplete}
       secureTextEntry={secureTextEntry}
+      value={value}
+      onChangeText={(text)=>setValue(text)}
       
       />
     </View>
