@@ -18,6 +18,7 @@ const styles=StyleSheet.create({
         color:'#fff',
         padding:10,
         height:40,
+        width:150,
         marginHorizontal:20,
         marginTop:20,
         borderRadius:35,

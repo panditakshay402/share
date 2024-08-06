@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Inputtext from "../../components/form/inputtext";
 import SubmitButton from "./submitButton";
 
-const Login = () => {
+const Login = ({navigation}) => {
 
      // State
   const [email, setEmail] = useState("");
@@ -57,7 +57,9 @@ const Login = () => {
       />
 
       <Text style={styles.linkText}>
-        Not a User ? <Text style={styles.link}>Register</Text>
+        Not a User ? <Text style={styles.link}
+        onPress={() => navigation.navigate("Register")}
+        >Register</Text>
       </Text>
     </View>
   );
@@ -69,7 +71,6 @@ const styles = StyleSheet.create({
       flex: 1,
       backgroundColor: "#fff",
       alignItems: "center",
-      marginTop: "50%",
       // justifyContent:'center',
     },
   
@@ -81,6 +82,8 @@ const styles = StyleSheet.create({
       color: "#000",
       fontSize: 24,
       fontWeight: "bold",
+      marginTop: "50%",
+
     },
     linkText: {
       color: "#000",
