@@ -9,8 +9,15 @@ const Register = () => {
       <Text style={styles.textBold}>Register</Text>
       <View style={styles.container2}>
        <Inputtext inputTitle={'Name'}/>
-       <Inputtext inputTitle={'Email'}/>
-       <Inputtext inputTitle={'Password'}/>
+       <Inputtext inputTitle={'Email'}
+       keyboardType={'email-address'}
+       autoComplete={'email'}
+       />
+       <Inputtext 
+       inputTitle={'Password'}
+       secureTextEntry={true}
+       autoComplete={'password'}
+       />
       </View>
     </View>
   )

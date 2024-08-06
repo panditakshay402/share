@@ -1,11 +1,17 @@
 import { View, Text,TextInput,StyleSheet } from 'react-native'
 import React from 'react'
 
-const Inputtext = ({inputTitle}) => {
+const Inputtext = ({inputTitle,keyboardType,autoComplete,secureTextEntry=false}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{inputTitle}</Text>
-      <TextInput style={styles.textInput}/>
+      <TextInput style={styles.textInput}
+      autoCorrect={false}
+      keyboardType={keyboardType}
+      autoComplete={autoComplete}
+      secureTextEntry={secureTextEntry}
+      
+      />
     </View>
   )
 }
@@ -13,11 +19,7 @@ const Inputtext = ({inputTitle}) => {
 const styles=StyleSheet.create({
     container:{
         marginTop:"5%",
-        // flex:1,
-        // backgroundColor:'#fff',
-        // alignItems:'center',
-        // marginTop:"50%",
-        // justifyContent:'center',
+        
     },
     text:{
         color:'#000',
