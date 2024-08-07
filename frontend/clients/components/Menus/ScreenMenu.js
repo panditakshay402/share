@@ -23,7 +23,7 @@ const ScreenMenu = () => {
             name="Home"
             component={Home}
             options={{
-                title: "Akshay",
+                title: "HomePage",
                 headerRight:() => <HeaderMenu/>,
             }}
           />
