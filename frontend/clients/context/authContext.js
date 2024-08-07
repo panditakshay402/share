@@ -21,7 +21,7 @@ const AuthProvider = ({ children }) => {
     const loadLocalStorageData = async () => {
       let data = await AsyncStorage.getItem("@auth");
       let loginData = JSON.parse(data);
-      setState({ ...state, user: data?.user, token: data?.token });
+      setState({ ...state, user: loginData?.user, token: loginData?.token });
     };
     loadLocalStorageData();
   }, []);
