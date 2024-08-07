@@ -1,17 +1,21 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-
-import { View, Text, StyleSheet, TextInput, Alert } from "react-native";
-import React, { useState } from "react";
+import { View, Text, StyleSheet, Alert } from "react-native";
+import React, { useState, useContext } from "react";
+import { AuthContext } from "../../context/authContext";
 import Inputtext from "../../components/form/inputtext";
 import SubmitButton from "./submitButton";
 
 const Login = ({ navigation }) => {
+  // Global state
+  const { state, setState } = useContext(AuthContext);
+
   // State
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setLoading(true);
     try {
       if (!email || !password) {
@@ -19,21 +23,19 @@ const Login = ({ navigation }) => {
         setLoading(false);
         return;
       }
-      setLoading(false);
-      const { data } = axios.post(
-        "http://192.168.0.103:8080/api/v1/auth/login",
+
+      const { data } = await axios.post(
+        "/auth/login",
         { email, password }
       );
+      setState(data);
+      await AsyncStorage.setItem("@auth", JSON.stringify(data));
       alert(data && data.message);
-      console.log("register data ==>", { email, password });
+      navigation.navigate("Home");
 
       console.log("Login data ==>", { email, password });
     } catch (error) {
-      if (
-        error.response &&
-        error.response.data &&
-        error.response.data.message
-      ) {
+      if (error.response && error.response.data && error.response.data.message) {
         alert(error.response.data.message);
       } else if (error.message) {
         alert(error.message); 
@@ -41,8 +43,17 @@ const Login = ({ navigation }) => {
         alert("An unexpected error occurred");
       }
       console.error("Error details:", error); 
+    } finally {
+      setLoading(false);
     }
   };
+
+  // Temp function to check local storage
+  const getLocalStorageData = async () => {
+    let data = await AsyncStorage.getItem("@auth");
+    console.log("Local storage data ==>", data);
+  };
+  getLocalStorageData();
 
   return (
     <View style={styles.container}>
@@ -64,7 +75,6 @@ const Login = ({ navigation }) => {
           setValue={setPassword}
         />
       </View>
-      {/* <Text>{JSON.stringify({name,email,password},null,4)}</Text> */}
 
       <SubmitButton
         btnTitle={"Login"}
@@ -73,7 +83,7 @@ const Login = ({ navigation }) => {
       />
 
       <Text style={styles.linkText}>
-        Not a User ?{" "}
+        Not a User?{" "}
         <Text
           style={styles.link}
           onPress={() => navigation.navigate("Register")}
@@ -90,7 +100,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    // justifyContent:'center',
   },
 
   container2: {
@@ -113,4 +122,5 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 });
+
 export default Login;

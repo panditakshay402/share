@@ -1,9 +1,10 @@
-import { View, Text, StyleSheet, TextInput, Alert } from "react-native";
+import { View, Text, StyleSheet, Alert } from "react-native";
 import React, { useState } from "react";
 import Inputtext from "../../components/form/inputtext";
 import SubmitButton from "./submitButton";
 import axios from "axios";
-const Register = ({navigation}) => {
+
+const Register = ({ navigation }) => {
   // State
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -11,7 +12,7 @@ const Register = ({navigation}) => {
   const [loading, setLoading] = useState(false);
 
   // Function
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setLoading(true);
     try {
       if (!name || !email || !password) {
@@ -19,14 +20,26 @@ const Register = ({navigation}) => {
         setLoading(false);
         return;
       }
-      setLoading(false);
-      const {data} =  axios.post('http://192.168.0.103:8080/api/v1/auth/register',{name,email,password});
+
+      const { data } = await axios.post(
+        "/auth/register",
+        { name, email, password }
+      );
+
       alert('Registration successful');
-      console.log("register data ==>", { name, email, password });
+      navigation.navigate("Login");
+      console.log("Register data ==>", { name, email, password });
     } catch (error) {
-      alert(error.response.data.message);
+      if (error.response && error.response.data && error.response.data.message) {
+        alert(error.response.data.message);
+      } else if (error.message) {
+        alert(error.message);
+      } else {
+        alert("An unexpected error occurred");
+      }
+      console.error("Error details:", error);
+    } finally {
       setLoading(false);
-      console.log(error);
     }
   };
 
@@ -52,7 +65,6 @@ const Register = ({navigation}) => {
           setValue={setPassword}
         />
       </View>
-      {/* <Text>{JSON.stringify({name,email,password},null,4)}</Text> */}
 
       <SubmitButton
         btnTitle={"Register"}
@@ -61,20 +73,23 @@ const Register = ({navigation}) => {
       />
 
       <Text style={styles.linkText}>
-        Already have an account? <Text style={styles.link}
-        onPress={() => navigation.navigate("Login")}
-        >Login</Text>
+        Already have an account?{" "}
+        <Text
+          style={styles.link}
+          onPress={() => navigation.navigate("Login")}
+        >
+          Login
+        </Text>
       </Text>
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    backgroundColor: "#fddf",
-    // justifyContent:'center',
   },
 
   container2: {

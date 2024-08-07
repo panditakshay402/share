@@ -5,7 +5,8 @@ Install the following packages using npm:
 * `npm install @react-navigation/native-stack`
 
 * `npm install axios`
-
+* `npm i @react-native-async-storage/async-storage`
+* `npm i react-native-vector-icons`
 
 # Backend:
 
