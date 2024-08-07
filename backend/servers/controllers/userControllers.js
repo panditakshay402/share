@@ -1,5 +1,6 @@
 const userModels = require("../models/userModel");
 const { hashPassword ,comparePassword} = require("../helpers/authhelper");
+const jwt = require("jsonwebtoken");
 
 const registerController = async (req, res) => {
   try {
@@ -60,9 +61,17 @@ const loginController = async (req, res) => {
         msg: "Invalid password",
       });
     }
-    res.status(200).send({ message: "Login successful", user });
+    //jwt token
+    const token = await jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "7d",
+    });
+
+    //undefined password
+user.password = undefined;  
+
+    res.status(200).send({ message: "Login successful", token,user });
   } catch (error) {
-    console.log(error);
+    console.log(error); 
     return res.status(500).send({
       success: false,
       msg: "Login error API",

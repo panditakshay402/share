@@ -8,7 +8,7 @@ Install the following packages using npm:
 '''bash
 
 npm init
-npm install express mongoose morgan colors dotenv bcrypt cors
+npm install express mongoose morgan colors dotenv bcrypt cors jsonwebtoken
 
 '''
 Run:
