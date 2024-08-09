@@ -10,12 +10,12 @@ Install the following packages using npm:
 
 # Backend:
 
-'''bash
+```bash
 
 npm init
 npm install express mongoose morgan colors dotenv bcrypt cors jsonwebtoken
 
-'''
+```
 Run:
 
 * 'node server.js'
