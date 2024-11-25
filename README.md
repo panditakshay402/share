@@ -19,7 +19,6 @@ npm install express mongoose morgan colors dotenv bcrypt cors jsonwebtoken
 Run:
 
 * 'node server.js'
-
-after nodemon:
+USing nodemon:
 
 * 'npm run server'
